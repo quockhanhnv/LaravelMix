@@ -1,6 +1,6 @@
 import { getLocalUser } from "./helpers/auth.js"
 
-const user =  getLocalUser()
+const user =  getLocalUser() // get user from local storage
 
 export default {
     state: {
@@ -41,7 +41,6 @@ export default {
             state.isLoggedIn = true
             state.loading = false
             state.currentUser = Object.assign({}, payload.user, {token: payload.access_token})
-
             localStorage.setItem("user", JSON.stringify(state.currentUser))
         },
         loginFailed(state, payload) {

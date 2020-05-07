@@ -18,6 +18,12 @@
                         <div class="form-group row">
                             <input type="submit" value="Login">
                         </div>
+
+                        <div class="form-group row" v-if="authError">
+                            <p class="error">
+                                {{ authError }}
+                            </p>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -41,20 +47,28 @@
         },
         methods: {
             authenticate() {
-                this.$store.dispatch('login') // dispatch to action of store (2 ways to commit or dispatch => line 49)
+                this.$store.dispatch('login') // dispatch to action of store (2 ways to commit or dispatch => line 54)
 
                 // login form auth.js
                 login(this.$data.form).then((res) => {
-                    this.$store.commit('loginSuccess', res); // commit to mutations store (2 ways to commit or dispatch line 44)
+                    this.$store.commit('loginSuccess', res); // commit to mutations of store (2 ways to commit or dispatch line 50)
                     this.$router.push({path: '/'})
                 }).catch((error) => {
                     this.$store.commit('loginFailed', {error});
                 })
+            }
+        },
+        computed: {
+            authError() {
+                return this.$store.getters.authError
             }
         }
     }
 </script>
 
 <style scoped>
-
+    .error {
+        text-align: center;
+        color: red;
+    }
 </style>
