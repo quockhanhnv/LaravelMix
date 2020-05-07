@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    Login
+                    {{ $t('login') }}
                 </div>
                 <div class="card-body">
                     <form @submit.prevent="authenticate">
@@ -12,11 +12,12 @@
                             <input type="text" v-model="form.email" class="form-control" placeholder="Email Address" id="email">
                         </div>
                         <div class="form-group row">
-                            <label for="password">Password</label>
+                            <label for="password">{{ $t('password') }}</label>
                             <input type="password" v-model="form.password" class="form-control" placeholder="Password" id="password">
                         </div>
                         <div class="form-group row">
-                            <input type="submit" value="Login">
+<!--                            <input type="submit" value="$t('login')">-->
+                            <button type="submit">{{ $t('login') }}</button>
                         </div>
 
                         <div class="form-group row" v-if="authError">

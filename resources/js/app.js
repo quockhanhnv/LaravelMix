@@ -7,8 +7,11 @@ import StoreData from './store';
 import MainApp from './components/MainApp.vue';
 import {initialize} from './helpers/general';
 
+import {i18n} from "./components/plugins/i18n";
+
 Vue.use(VueRouter);
 Vue.use(Vuex);
+
 
 const store = new Vuex.Store(StoreData);
 
@@ -23,6 +26,7 @@ const app = new Vue({
     el: '#app',
     router,
     store,
+    i18n,
     components: {
         MainApp
     }
