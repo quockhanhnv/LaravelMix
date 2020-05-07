@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMailToNotifications;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class NotificationController extends Controller
 {
@@ -47,6 +49,11 @@ class NotificationController extends Controller
 
             DB::commit();
 
+            // send mail to all user has role ADMIN_ROLE
+
+//            $listEmail = $users->pluck('email')->toArray();
+//
+//            Mail::to('quockhanhnv0209@gmail.com')->send(new SendMailToNotifications($notification->notification_title, $notification->notification_content));
             return response()->json([
                 "notification" => $notification
             ], 200);
