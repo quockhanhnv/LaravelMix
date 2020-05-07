@@ -5,6 +5,9 @@ import CustomersList from './components/customers/List.vue';
 import NewCustomer from './components/customers/New.vue';
 import Customer from './components/customers/View.vue';
 
+import NotificationsMain from './components/notifications/Main.vue';
+import NotificationsList from './components/notifications/List.vue';
+import NewNotification from './components/notifications/New.vue';
 export const routes = [
     {
         path: '/',
@@ -31,6 +34,27 @@ export const routes = [
             {
                 path: 'new',
                 component: NewCustomer
+            },
+            {
+                path: ':id',
+                component: Customer
+            }
+        ]
+    },
+    {
+        path: '/notifications',
+        component: NotificationsMain,
+        meta: {
+            requiresAuth: true
+        },
+        children: [
+            {
+                path: '/',
+                component: NotificationsList
+            },
+            {
+                path: 'new',
+                component: NewNotification
             },
             {
                 path: ':id',

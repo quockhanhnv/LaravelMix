@@ -39,4 +39,10 @@ Route::group(['middleware' => 'jwt.auth',], function ($router) {
     Route::get('customers/{id}', 'CustomersController@get');
     Route::post('customers/new', 'CustomersController@new');
 
+    Route::get('notifications', 'NotificationController@all');
+    Route::get('notifications/{id}', 'NotificationController@get');
+    Route::post('notifications/new', 'NotificationController@new');
+
 });
+
+
