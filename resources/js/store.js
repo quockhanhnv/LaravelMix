@@ -1,10 +1,9 @@
-import { getLocalUser } from "./helpers/auth.js"
+import { getLocalUser } from "./helpers/auth";
 
-const user =  getLocalUser() // get user from local storage
+const user = getLocalUser();
 
 export default {
     state: {
-        welcomeMessage: 'WELCOME TO MY VUE APP',
         currentUser: user,
         isLoggedIn: !!user,
         loading: false,
@@ -12,50 +11,57 @@ export default {
         customers: []
     },
     getters: {
-        welcome(state) {
-            return state.welcomeMessage
-        },
         isLoading(state) {
-            return state.loading
+            return state.loading;
         },
         isLoggedIn(state) {
-            return state.isLoggedIn
+            return state.isLoggedIn;
         },
         currentUser(state) {
-            return state.currentUser
+            return state.currentUser;
         },
         authError(state) {
-            return state.auth_error
+            return state.auth_error;
         },
         customers(state) {
-            return state.auth_error
+            return state.customers;
         }
     },
     mutations: {
         login(state) {
-            state.loading = true
-            state.auth_error = null
+            state.loading = true;
+            state.auth_error = null;
         },
         loginSuccess(state, payload) {
-            state.auth_error = null
-            state.isLoggedIn = true
-            state.loading = false
-            state.currentUser = Object.assign({}, payload.user, {token: payload.access_token})
-            localStorage.setItem("user", JSON.stringify(state.currentUser))
+            state.auth_error = null;
+            state.isLoggedIn = true;
+            state.loading = false;
+            state.currentUser = Object.assign({}, payload.user, {token: payload.access_token});
+
+            localStorage.setItem("user", JSON.stringify(state.currentUser));
         },
         loginFailed(state, payload) {
-            state.loading = false
-            state.auth_error = payload.error
+            state.loading = false;
+            state.auth_error = payload.error;
         },
         logout(state) {
-            localStorage.removeItem("user")
-            state.isLoggedIn = false
-            state.currentUser = null
+            localStorage.removeItem("user");
+            state.isLoggedIn = false;
+            state.currentUser = null;
+        },
+        updateCustomers(state, payload) {
+            state.customers = payload;
         }
     },
     actions: {
         login(context) {
-            context.commit("login") // commit to mutations
+            context.commit("login");
+        },
+        getCustomers(context) {
+            axios.get('/api/customers')
+                .then((response) => {
+                    context.commit('updateCustomers', response.data.customers);
+                })
         }
     }
-}
+};
