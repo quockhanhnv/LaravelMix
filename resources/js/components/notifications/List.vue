@@ -5,24 +5,24 @@
         </div>
         <table class="table">
             <thead>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Author</th>
             <th>Actions</th>
             </thead>
             <tbody>
-            <template v-if="!customers.length">
+            <template v-if="!notifications.length">
                 <tr>
-                    <td colspan="4" class="text-center">No Customers Available</td>
+                    <td colspan="4" class="text-center">No Notifications Available</td>
                 </tr>
             </template>
             <template v-else>
-                <tr v-for="customer in customers" :key="customer.id">
-                    <td>{{ customer.name }}</td>
-                    <td>{{ customer.email }}</td>
-                    <td>{{ customer.phone }}</td>
+                <tr v-for="notification in notifications" :key="notification.id">
+                    <td>{{ notification.notification_title }}</td>
+                    <td>{{ notification.notification_content }}</td>
+                    <td>{{ notification.author.name }}</td>
                     <td>
-                        <router-link :to="`/customers/${customer.id}`">View</router-link>
+                        <router-link :to="`/notifications/${notification.id}`">View</router-link>
                     </td>
                 </tr>
             </template>
@@ -35,15 +35,15 @@
     export default {
         name: 'list',
         mounted() {
-            if (this.customers.length) {
+            if (this.notifications.length) {
                 return;
             }
 
-            this.$store.dispatch('getCustomers');
+            this.$store.dispatch('getNotifications');
         },
         computed: {
-            customers() {
-                return this.$store.getters.customers;
+            notifications() {
+                return this.$store.getters.notifications;
             }
         }
     }

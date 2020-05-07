@@ -12,4 +12,9 @@ class Notification extends Model
     {
         return $this->belongsToMany(User::class, 'user_notifications', 'notification_id');
     }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

@@ -8,7 +8,8 @@ export default {
         isLoggedIn: !!user,
         loading: false,
         auth_error: null,
-        customers: []
+        customers: [],
+        notifications: [],
     },
     getters: {
         isLoading(state) {
@@ -25,6 +26,9 @@ export default {
         },
         customers(state) {
             return state.customers;
+        },
+        notifications(state) {
+            return state.notifications;
         }
     },
     mutations: {
@@ -51,6 +55,9 @@ export default {
         },
         updateCustomers(state, payload) {
             state.customers = payload;
+        },
+        updateNotifications(state, payload) {
+            state.notifications = payload;
         }
     },
     actions: {
@@ -61,6 +68,12 @@ export default {
             axios.get('/api/customers')
                 .then((response) => {
                     context.commit('updateCustomers', response.data.customers);
+                })
+        },
+        getNotifications(context) {
+            axios.get('/api/notifications')
+                .then((response) => {
+                    context.commit('updateNotifications', response.data.notifications);
                 })
         }
     }

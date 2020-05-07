@@ -8,6 +8,8 @@ import Customer from './components/customers/View.vue';
 import NotificationsMain from './components/notifications/Main.vue';
 import NotificationsList from './components/notifications/List.vue';
 import NewNotification from './components/notifications/New.vue';
+import Notification from './components/notifications/View.vue';
+
 export const routes = [
     {
         path: '/',
@@ -58,7 +60,7 @@ export const routes = [
             },
             {
                 path: ':id',
-                component: Customer
+                component: Notification
             }
         ]
     }

@@ -10,6 +10,24 @@ use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
 {
+    public function all()
+    {
+        $customers = Notification::with('author')->orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            "notifications" => $customers
+        ], 200);
+    }
+
+    public function get($id)
+    {
+        $customer = Notification::whereId($id)->first();
+
+        return response()->json([
+            "customer" => $customer
+        ], 200);
+    }
+
     public function new(Request $request)
     {
 
@@ -34,7 +52,6 @@ class NotificationController extends Controller
             ], 200);
 
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             DB::rollBack();
         }
 
